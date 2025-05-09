@@ -28,7 +28,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white min-h-screen flex items-center justify-center m-4">
-  <div class="bg-gray-800 shadow-lg p-8 rounded-md w-full max-w-md">
+  <div class="bg-gray-800 shadow-lg p-8 rounded-md w-full max-w-md max-h-screen">
     <!-- Formulário -->
     <div id="formContainer">
       <h1 class="text-2xl font-bold mb-4 text-center">Data Corners 📊</h1>
@@ -59,7 +59,6 @@
     <!-- Tela de previsão -->
     <div id="previsaoContainer" class="hidden text-center">
       <h2 class="text-2xl font-semibold mt-4">📊 Previsão da rodada:</h2>
-      <p class="mt-6 text-gray-300">Aguarde os resultados gerados com base nos dados enviados.</p>
     </div>
   </div>
   <footer class="mt-12 border-t border-gray-700 py-6 text-center fixed bottom-0 p-4">
@@ -72,37 +71,126 @@
 
 
   <script>
-    const form = document.getElementById('formulario');
-    const loader = document.getElementById('loader');
-    const formContainer = document.getElementById('formContainer');
-    const previsaoContainer = document.getElementById('previsaoContainer');
+  const jogos = [
+    {
+      jogo: "Fortaleza vs Juventude",
+      previsao: 10.06,
+      over: 25.0,
+      under: 75.0,
+      evOver: -0.496,
+      evUnder: 0.313,
+      aposta: "Under 10.5"
+    },
+    {
+      jogo: "Mirassol vs Corinthians",
+      previsao: 12.32,
+      over: 99.0,
+      under: 1.0,
+      evOver: 0.811,
+      evUnder: -0.98,
+      aposta: "Over 10.5"
+    },
+    {
+      jogo: "Grêmio vs Red Bull Bragantino",
+      previsao: 11.14,
+      over: 83.0,
+      under: 17.0,
+      evOver: 0.519,
+      evUnder: -0.672,
+      aposta: "Over 10.5"
+    },
+    {
+      jogo: "Vitória vs Vasco da Gama",
+      previsao: 9.38,
+      over: 42.7,
+      under: 57.3,
+      evOver: -0.253,
+      evUnder: 0.146,
+      aposta: "Under 9.5"
+    },
+    {
+      jogo: "Flamengo vs Bahia",
+      previsao: 11.24,
+      over: 98.7,
+      under: 1.3,
+      evOver: 0.727,
+      evUnder: -0.974,
+      aposta: "Over 9.5"
+    },
+    {
+      jogo: "Sport Recife vs Cruzeiro",
+      previsao: 11.06,
+      over: 98.0,
+      under: 2.0,
+      evOver: 0.666,
+      evUnder: -0.959,
+      aposta: "Over 9.5"
+    }
+  ];
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      loader.classList.remove('hidden');
+  const form = document.getElementById('formulario');
+  const loader = document.getElementById('loader');
+  const formContainer = document.getElementById('formContainer');
+  const previsaoContainer = document.getElementById('previsaoContainer');
 
-      const name = document.getElementById('name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
+  function exibirTabelaPrevisoes() {
+    const tabela = document.createElement("table");
+    tabela.className = "w-full mt-6 text-sm table-auto border border-gray-700";
 
-      try {
-        const res = await fetch('https://data-corners.onrender.com/save', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, phone })
-        });
+    const thead = document.createElement("thead");
+    thead.innerHTML = `
+      <tr class="bg-gray-700 text-white">
+        <th class="p-2 border">Jogo</th>
+        <th class="p-2 border">📊 Escanteios</th>
+        <th class="p-2 border">✅ Aposta</th>
+      </tr>
+    `;
+    tabela.appendChild(thead);
 
-        if (!res.ok) throw new Error('Erro ao salvar');
-
-        form.reset();
-        formContainer.classList.add('hidden');
-        previsaoContainer.classList.remove('hidden');
-      } catch (err) {
-        alert('Erro ao enviar os dados. Tente novamente.');
-        console.error(err);
-      } finally {
-        loader.classList.add('hidden');
-      }
+    const tbody = document.createElement("tbody");
+    jogos.forEach(jogo => {
+      const row = document.createElement("tr");
+      row.className = "text-gray-300";
+      row.innerHTML = `
+        <td class="p-2 border">${jogo.jogo}</td>
+        <td class="p-2 border">${jogo.previsao}</td>
+        <td class="p-2 border font-bold">${jogo.aposta}</td>
+      `;
+      tbody.appendChild(row);
     });
-  </script>
+    tabela.appendChild(tbody);
+    previsaoContainer.appendChild(tabela);
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    loader.classList.remove('hidden');
+
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+
+    try {
+      const res = await fetch('https://data-corners.onrender.com/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone })
+      });
+
+      if (!res.ok) throw new Error('Erro ao salvar');
+
+      form.reset();
+      formContainer.classList.add('hidden');
+      previsaoContainer.classList.remove('hidden');
+      exibirTabelaPrevisoes();
+    } catch (err) {
+      alert('Erro ao enviar os dados. Tente novamente.');
+      console.error(err);
+    } finally {
+      loader.classList.add('hidden');
+    }
+  });
+</script>
+
+
 </body>
 </html>
