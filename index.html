@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Corners</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center m-4">
+  <div class="bg-gray-800 shadow-lg p-8 rounded-md w-full max-w-md">
+    <!-- Formulário -->
+    <div id="formContainer">
+      <h1 class="text-2xl font-bold mb-4 text-center">Data Corners 📊</h1>
+      <form id="formulario" class="flex flex-col gap-4">
+        <input
+          id="name"
+          type="text"
+          placeholder="Seu nome"
+          required
+          class="border border-gray-700 bg-gray-900 text-white rounded p-2"
+        />
+        <input
+          id="phone"
+          type="tel"
+          placeholder="(99) 99999-9999"
+          required
+          class="border border-gray-700 bg-gray-900 text-white rounded p-2"
+        />
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded">
+          Enviar
+        </button>
+      </form>
+      <div id="loader" class="text-center mt-4 hidden text-sm">⏳ Enviando...</div>
+    </div>
+
+    <!-- Tela de previsão -->
+    <div id="previsaoContainer" class="hidden text-center">
+      <h2 class="text-2xl font-semibold mt-4">📊 Previsão da rodada:</h2>
+      <p class="mt-6 text-gray-300">Aguarde os resultados gerados com base nos dados enviados.</p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('formulario');
+    const loader = document.getElementById('loader');
+    const formContainer = document.getElementById('formContainer');
+    const previsaoContainer = document.getElementById('previsaoContainer');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loader.classList.remove('hidden');
+
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      try {
+        const res = await fetch('https://data-corners.onrender.com/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, phone })
+        });
+
+        if (!res.ok) throw new Error('Erro ao salvar');
+
+        form.reset();
+        formContainer.classList.add('hidden');
+        previsaoContainer.classList.remove('hidden');
+      } catch (err) {
+        alert('Erro ao enviar os dados. Tente novamente.');
+        console.error(err);
+      } finally {
+        loader.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
