@@ -1,182 +1,209 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-    <meta name="description" content="Data Corners - Análise de dados nos esportes." />
-    <meta name="keywords" content="Data Corners, análise de dados, esportes, previsão" />
-    <meta name="author" content="Data Corners" />
-    <meta name="robots" content="index, follow" />
-    <meta
-    property="og:image"
-    content="https://m4rcxs.github.io/data-corners-landing-page/preview.jpg"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Data Corners 📊" />
-    <meta
-    name="twitter:description"
-    content="Data Corners - Análise de dados nos esportes."
-    />
-    <meta
-    name="twitter:image"
-    content="https://m4rcxs.github.io/data-corners-landing-page/preview.jpg"
-    />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text y='20' font-size='20'>📊</text></svg>">
+  <meta name="description" content="Data Corners - Análise de dados nos esportes." />
+  <meta name="keywords" content="Data Corners, análise de dados, esportes, previsão" />
+  <meta name="author" content="Data Corners" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:image" content="https://m4rcxs.github.io/data-corners-landing-page/preview.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Data Corners 📊" />
+  <meta name="twitter:description" content="Data Corners - Análise de dados nos esportes." />
+  <meta name="twitter:image" content="https://m4rcxs.github.io/data-corners-landing-page/preview.jpg" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text y='20' font-size='20'>📊</text></svg>">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Corners 📊</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-900 text-white">
   <div class="min-h-screen flex flex-col justify-center items-center px-4 pb-32">
     <div class="bg-gray-800 shadow-lg p-8 rounded-md w-full max-w-md">
-    <!-- Formulário -->
-    <div id="formContainer">
-      <h1 class="text-2xl font-bold mb-4 text-center">Data Corners 📊</h1>
-      <p class="text-sm text-gray-400 italic py-2 justify-center items-center text-center flex">
-            Envie para ter acesso a previsões de escanteios.
-            </p>
-      <form id="formulario" class="flex flex-col gap-4">
-        <input
-          id="name"
-          type="text"
-          placeholder="Seu nome"
-          required
-          class="border border-gray-700 bg-gray-900 text-white rounded p-2"
-        />
-        <input
-          id="phone"
-          type="tel"
-          placeholder="(99) 99999-9999"
-          required
-            maxlength="11"
-        pattern="\d{11}"
-          class="border border-gray-700 bg-gray-900 text-white rounded p-2"
-        />
-        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded">
-          Enviar
-        </button>
-      </form>
-      <div id="loader" class="text-center mt-4 hidden text-sm">⏳ Aguarde aproximadamente 30 segundos...</div>
-      <div>
+      <!-- Formulário -->
+      <div id="formContainer">
+        <h1 class="text-2xl font-bold mb-4 text-center">Data Corners 📊</h1>
+        <p class="text-sm text-gray-400 italic py-2 justify-center items-center text-center flex">
+          Envie para ter acesso a previsões de escanteios.
+        </p>
+        <form id="formulario" class="flex flex-col gap-4">
+          <input id="name" type="text" placeholder="Seu nome" required
+            class="border border-gray-700 bg-gray-900 text-white rounded p-2" />
+          <input id="phone" type="tel" placeholder="(99) 99999-9999" required maxlength="11" pattern="\d{11}"
+            class="border border-gray-700 bg-gray-900 text-white rounded p-2" />
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded">
+            Enviar
+          </button>
+        </form>
+        <div id="loader" class="text-center mt-4 hidden text-sm">⏳ Aguarde aproximadamente 30 segundos...</div>
+        <div>
+        </div>
+      </div>
+
+      <!-- Tela de previsão -->
+      <div id="previsaoContainer" class="hidden text-center">
+        <h2 class="text-2xl font-semibold mt-4">📊 Previsão da rodada:</h2>
+        <span>Bem vindo(a) </span><span id="userName" class="font-bold italic"></span><span>!</span>
       </div>
     </div>
+    <div class="flex gap-4 flex-col justify-center items-center mt-4">
+      <div class="flex flex-col">
 
-    <!-- Tela de previsão -->
-    <div id="previsaoContainer" class="hidden text-center">
-      <h2 class="text-2xl font-semibold mt-4">📊 Previsão da rodada:</h2>
-      <span>Bem vindo(a) </span><span id="userName" class="font-bold italic"></span><span>!</span>
-    </div>
-  </div>
-  <div class="flex gap-4 flex-col justify-center items-center mt-4">
-      <p class="text-sm text-gray-400 italic py-2 justify-center items-center text-center flex">
-        Atualmente temos 82% de acertos em nossas previsões.
-      Acompanhe nossas redes sociais para mais informações.
-    </p>
-    <div class="flex justify-center items-center gap-4">
-        <a href="https://data-corners.streamlit.app/" target="_blank" class="flex items-center gap-2 text-blue-500 hover:underline">
-        <i class="fas fa-chart-line"></i> Estatísticas
+        <p class="text-sm text-gray-400 italic pt-2 gap-1 justify-center items-center text-center flex">
+          Atualmente temos <a class="text-blue-600 font-bold underline " href="https://data-corners.streamlit.app/" target="_blank" id="porcentagem">...</a> de acertos em nossas previsões.
+        </p>
+        <p class="text-sm text-gray-400 italic justify-center items-center text-center flex">
+          Acompanhe nossas redes sociais para mais informações.</p>
+      </div>
+      <div class="flex justify-center items-center gap-4">
+        <a href="https://data-corners.streamlit.app/" target="_blank"
+          class="flex items-center gap-2 text-blue-500 hover:underline">
+          <i class="fas fa-chart-line"></i> Estatísticas
         </a>
-        <a href="https://x.com/cornersdata/" target="_blank" class="flex items-center gap-2 text-blue-500 hover:underline">
-        <i class="fab fa-x-twitter"></i> Twitter
+        <a href="https://x.com/cornersdata/" target="_blank"
+          class="flex items-center gap-2 text-blue-500 hover:underline">
+          <i class="fab fa-x-twitter"></i> Twitter
         </a>
 
-  </div>
-  <footer class="w-full border-t border-gray-700 py-2 text-center p-4 fixed bottom-0 bg-gray-900">
-    <p class="text-sm text-gray-400 italic">
-      Este conteúdo tem caráter exclusivamente informativo e não constitui recomendação de apostas ou garantia de ganhos.
-      Apostas envolvem riscos e podem resultar em perdas financeiras.
-      Jogue com responsabilidade. A decisão de apostar é pessoal e deve ser feita com cautela.
-    </p>
-  </footer>
+      </div>
+      <footer class="w-full border-t border-gray-700 py-2 text-center p-4 fixed bottom-0 bg-gray-900">
+        <p class="text-sm text-gray-400 italic">
+          Este conteúdo tem caráter exclusivamente informativo e não constitui recomendação de apostas ou garantia de
+          ganhos.
+          Apostas envolvem riscos e podem resultar em perdas financeiras.
+          Jogue com responsabilidade. A decisão de apostar é pessoal e deve ser feita com cautela.
+        </p>
+      </footer>
 
 
-  <script>
-    function exibirTabelaPrevisoes() {
-  if (!jogos || jogos.length === 0) {
-    const aviso = document.createElement("p");
-    aviso.className = "mt-6 text-yellow-400 italic";
-    aviso.textContent = "⚠️ Ainda não há jogos disponíveis no momento. As próximas previsões estarão disponíveis na sexta-feira. Fique ligado!";
-    previsaoContainer.appendChild(aviso);
-    return;
-  }
+      <script>
+        (async function testarFetchCSV() {
+          const urlCSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQHUpdCQrBoNnKWaPsk312y9TxqQLPcOzQ2mP3ab0gDJKzgUxuAaEyK4NpzXf04iYdjkYiA2hO5788y/pub?gid=1274934329&single=true&output=csv';
+          const proxyURL = `https://api.allorigins.win/raw?url=${encodeURIComponent(urlCSV)}`;
 
-  const tabela = document.createElement("table");
-  tabela.className = "w-full mt-6 text-sm table-auto border border-gray-700";
+          try {
+            const response = await fetch(proxyURL);
+            const csv = await response.text();
 
-  const thead = document.createElement("thead");
-  thead.innerHTML = `
+            // Separar linhas e colunas
+            const linhas = csv.trim().split('\n');
+            const cabecalho = linhas[0].split(',');
+
+            // Descobrir o índice da coluna Resultado da Aposta
+            const idxResultado = cabecalho.findIndex(col => col.trim() === 'Resultado da Aposta (Green/Red)');
+
+            let total = 0;
+            let greens = 0;
+
+            for (let i = 1; i < linhas.length; i++) {
+              const colunas = linhas[i].split(',');
+              const resultado = colunas[idxResultado]?.trim().toUpperCase();
+
+              if (resultado === 'GREEN' || resultado === 'RED') {
+                total++;
+                if (resultado === 'GREEN') greens++;
+              }
+            }
+
+            const precisao = total > 0 ? Math.round((greens / total) * 100) : 0;
+            document.getElementById("porcentagem").innerText = `${precisao}%`;
+
+          } catch (error) {
+            console.error("❌ Erro ao buscar com proxy:", error);
+            document.getElementById("porcentagem").innerText = "Erro ao carregar dados";
+          }
+        })();
+
+        function exibirTabelaPrevisoes() {
+          if (!jogos || jogos.length === 0) {
+            const aviso = document.createElement("p");
+            aviso.className = "mt-6 text-yellow-400 italic";
+            aviso.textContent = "⚠️ Ainda não há jogos disponíveis no momento. As próximas previsões estarão disponíveis na sexta-feira. Fique ligado!";
+            previsaoContainer.appendChild(aviso);
+            return;
+          }
+
+          const tabela = document.createElement("table");
+          tabela.className = "w-full mt-6 text-sm table-auto border border-gray-700";
+
+          const thead = document.createElement("thead");
+          thead.innerHTML = `
     <tr class="bg-gray-700 text-white">
       <th class="p-2 border">Jogo</th>
       <th class="p-2 border">📊 Escanteios</th>
       <th class="p-2 border">✅ Aposta</th>
     </tr>
   `;
-  tabela.appendChild(thead);
+          tabela.appendChild(thead);
 
-  const tbody = document.createElement("tbody");
-  jogos.forEach(jogo => {
-    const row = document.createElement("tr");
-    row.className = "text-gray-300";
-    row.innerHTML = `
+          const tbody = document.createElement("tbody");
+          jogos.forEach(jogo => {
+            const row = document.createElement("tr");
+            row.className = "text-gray-300";
+            row.innerHTML = `
       <td class="p-2 border">${jogo.jogo}</td>
       <td class="p-2 border">${jogo.previsao}</td>
       <td class="p-2 border font-bold">${jogo.aposta}</td>
     `;
-    tbody.appendChild(row);
-  });
-  tabela.appendChild(tbody);
-  previsaoContainer.appendChild(tabela);
-}
+            tbody.appendChild(row);
+          });
+          tabela.appendChild(tbody);
+          previsaoContainer.appendChild(tabela);
+        }
 
-  const jogos = [
-    
-  ];
+        const jogos = [
 
-  const form = document.getElementById('formulario');
-  const loader = document.getElementById('loader');
-  const formContainer = document.getElementById('formContainer');
-  const previsaoContainer = document.getElementById('previsaoContainer');
+        ];
 
-  
+        const form = document.getElementById('formulario');
+        const loader = document.getElementById('loader');
+        const formContainer = document.getElementById('formContainer');
+        const previsaoContainer = document.getElementById('previsaoContainer');
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    loader.classList.remove('hidden');
 
-    const name = document.getElementById('name').value.trim();
-    const phone = document.getElementById('phone').value.trim();
 
-    try {
-      const res = await fetch('https://data-corners.onrender.com/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone })
-      });
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          loader.classList.remove('hidden');
 
-      const data = await res.json();
+          const name = document.getElementById('name').value.trim();
+          const phone = document.getElementById('phone').value.trim();
 
-      if (!res.ok) throw new Error(data.message || 'Erro ao salvar');
+          try {
+            const res = await fetch('https://data-corners.onrender.com/save', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name, phone })
+            });
 
-      // Define o nome retornado como preferencial
-      const nomeUsuario = data.name || name;
-      document.getElementById('userName').textContent = nomeUsuario;
+            const data = await res.json();
 
-      form.reset();
-      formContainer.classList.add('hidden');
-      previsaoContainer.classList.remove('hidden');
-      exibirTabelaPrevisoes();
-    } catch (err) {
-      alert('Erro ao enviar os dados. Tente novamente.');
-      console.error(err);
-    } finally {
-      loader.classList.add('hidden');
-    }
+            if (!res.ok) throw new Error(data.message || 'Erro ao salvar');
 
-  });
-</script>
+            // Define o nome retornado como preferencial
+            const nomeUsuario = data.name || name;
+            document.getElementById('userName').textContent = nomeUsuario;
+
+            form.reset();
+            formContainer.classList.add('hidden');
+            previsaoContainer.classList.remove('hidden');
+            exibirTabelaPrevisoes();
+          } catch (err) {
+            alert('Erro ao enviar os dados. Tente novamente.');
+            console.error(err);
+          } finally {
+            loader.classList.add('hidden');
+          }
+
+        });
+      </script>
 
 
 </body>
+
 </html>
